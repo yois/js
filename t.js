@@ -453,52 +453,52 @@ input[type=range]:focus::-ms-fill-upper {
 	</script>
 	*/}).toString().match(/[^]*\/\*([^]*)\*\/\}$/)[1];
 	$('#main_canvas').html(html);
-	function tweetPost(base64) {
-		console.log(base64);
-		var bin = atob(base64.replace(/^.*,/, ''));
-		var buffer = new Uint8Array(bin.length);
-		for (var i = 0; i < bin.length; i++) {
-			buffer[i] = bin.charCodeAt(i);
+}
+function tweetPost(base64) {
+	console.log(base64);
+	var bin = atob(base64.replace(/^.*,/, ''));
+	var buffer = new Uint8Array(bin.length);
+	for (var i = 0; i < bin.length; i++) {
+		buffer[i] = bin.charCodeAt(i);
+	}
+	try {
+		var blob = new Blob([buffer.buffer], {
+			type: 'image/x-png'
+		});
+		var date = new Date();
+		var formData = new FormData();
+		console.log(blob);
+		formData.append("mode", "bbs_write");
+		formData.append("Category", "CT01");
+		formData.append("upform", "s");
+		formData.append("Title", "echa");
+		formData.append("Name2", "1");
+		formData.append("image", "1.png");
+		formData.append("cookieid", "1");
+		formData.append("t_session", "");
+		formData.append("Data", $('textarea[name="Data"]').val() + " Posted at "+ date.toUTCString());
+		formData.append("hash", $('input[name="hash"]').val());
+		if ($('input[name="hashcheck"]').prop("checked")) {
+			formData.append("hashcheck", 'on');
+		} else {
+			formData.append("hashcheck", '');
 		}
-		try {
-			var blob = new Blob([buffer.buffer], {
-				type: 'image/x-png'
-			});
-			var date = new Date();
-			var formData = new FormData();
-			console.log(blob);
-			formData.append("mode", "bbs_write");
-			formData.append("Category", "CT01");
-			formData.append("upform", "s");
-			formData.append("Title", "echa");
-			formData.append("Name2", "1");
-			formData.append("image", "1.png");
-			formData.append("cookieid", "1");
-			formData.append("t_session", "");
-			formData.append("Data", $('textarea[name="Data"]').val() + " Posted at "+ date.toUTCString());
-			formData.append("hash", $('input[name="hash"]').val());
-			if ($('input[name="hashcheck"]').prop("checked")) {
-				formData.append("hashcheck", 'on');
-			} else {
-				formData.append("hashcheck", '');
-			}
-			formData.append("upfile", blob);
-			$.ajax({
-				url: './rbbs.cgi',
-				method: 'POST',
-				dataType: 'json',
-				contentType: false,
-				data: formData,
-				processData: false,
-			}).done(function (output, status, xhr) {
-				console.log('SUCCESS', output, status, xhr);
-			}).fail(function (xhr, status, errorThrown) {
-				console.log('ERROR', xhr, status, errorThrown);
-			}).always(function () {
-				location.href = location.href;
-			});
-		} catch (e) {
-			console.log(e);
-		}
+		formData.append("upfile", blob);
+		$.ajax({
+			url: './rbbs.cgi',
+			method: 'POST',
+			dataType: 'json',
+			contentType: false,
+			data: formData,
+			processData: false,
+		}).done(function (output, status, xhr) {
+			console.log('SUCCESS', output, status, xhr);
+		}).fail(function (xhr, status, errorThrown) {
+			console.log('ERROR', xhr, status, errorThrown);
+		}).always(function () {
+			location.href = location.href;
+		});
+	} catch (e) {
+		console.log(e);
 	}
 }
