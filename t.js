@@ -3,7 +3,7 @@ function echastart() {
 		alert('既に読み込まれてます');
 		exit; //Don't do it. antipattern.
 	}
-	document.querySelector("head").removeChild(document.querySelector("script[src='http://tk2-213-16457.vs.sakura.ne.jp/cssjava/jquery.js']"));//Fuck U jQuery?v1.4.4 Got Kill
+	document.querySelector("head").removeChild(document.querySelector("script[src*='jquery.js']"));//Fuck U jQuery?v1.4.4 Got Kill
 	
 	var css = document.createElement("style");
 	css.setAttribute("id", "custom_css");
@@ -144,7 +144,7 @@ input[type=range]:focus::-ms-fill-upper {
 	
 	
 	s = document.createElement("script");
-	s.src = "//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js";
+	s.src = "//ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js";
 	document.head.appendChild(s);
 	$ = jQuery = jQuery.noConflict().extend(true, $);
 	$('#tubuyakiSubmit2').attr('onSubmit', "javascript:tweetPost();return false;");
