@@ -150,8 +150,7 @@ input[type=range]:focus::-ms-fill-upper {
 	$('#tubuyakiSubmit2').attr('onSubmit', "javascript:tweetPost();return false;");
 	$('#tubuyakiSubmit2').find('input[type="submit"]').replaceWith("<span style='color:fff;font-weight:bold;font-style:oblique;'>お絵かき付きでつぶやく</span>");
 	$('textarea[name="Data"]').val('echa');
-	$('input[name="hash"]').val('echa');
-	$('input[name="hash"]').attr('disabled',true);
+	$('input[name="hash"]').val('tiraura');
 	$('textarea[name="Data"]').attr('disabled',true);
 	var parent = document.querySelector('#tubuyaki');
 	var fragment = document.createDocumentFragment();
