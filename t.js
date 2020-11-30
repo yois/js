@@ -330,6 +330,8 @@ input[type=range]:focus::-ms-fill-upper {
 	<script>
 	var canvas = document.getElementById("canvas");
 	var ctx = canvas.getContext("2d");
+	ctx.fillStyle = "#FFFFFF";
+	ctx.fillRect(0,0,500,500);
 	var mouse = {x:0,y:0,x1:0,y1:0,color:"black"};
 	var draw = false;
 	var draw_count = 0;
